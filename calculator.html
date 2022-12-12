@@ -1,0 +1,177 @@
+<div class="cal">
+    <div class="cal_display">0</div>
+    <div class="cal_keys">
+        <div class="keys_left">
+            <button class="basic_key">7</button>
+            <button class="basic_key">8</button>
+            <button class="basic_key">9</button>
+
+            <button class="basic_key">4</button>
+            <button class="basic_key">5</button>
+            <button class="basic_key">6</button>
+
+            <button class="basic_key">1</button>
+            <button class="basic_key">2</button>
+            <button class="basic_key">3</button>
+
+            <button class="basic_key" data-action="decimal">.</button>
+            <button class="basic_key">0</button>
+
+        </div>
+        <div class="keys_center">
+            <button class="basic_key" data-action="divide">÷</button>
+            <button class="basic_key" data-action="multiply">x</button>
+            <button class="basic_key" data-action="add">+</button>
+            <button class="basic_key" data-action="subtract">-</button>
+        </div>
+
+        <div class="keys_right">
+            <button class="basic_key" data-action="clear">AC</button>
+            <button class="basic_key" data-action="calculate">=</button>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .cal,button{
+        font-size: 2rem;
+    }
+
+    .cal_display {
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 1rem;
+    }
+
+    .keys_left .basic_key {
+        background-color: #fff;
+    }
+
+    .keys_left .basic_key:hover {
+        background-color: #D0D0D7;
+    }
+
+    button {
+        border: 0;
+    }
+
+    .cal_keys {
+        display: flex;
+        justify-content: space-around;
+
+    }
+
+    .keys_left {
+        flex: 3;
+        width: 100%;
+        display: grid;
+        /* display: inline-grid; */
+        grid-template-columns: 33.33% 33.33% 33.33%;
+        grid-template-rows: 33.33% 33.33% 33.33%;
+    }
+
+    .keys_center {
+        flex: 1;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .keys_right {
+        flex: 1;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .basic_key {
+        height: 100px;
+    }
+</style>
+
+
+<script>
+    const calc = document.querySelector('.cal');
+    const keys = document.querySelector('.cal_keys');
+    const display = document.querySelector('.cal_display')
+
+    keys.addEventListener('click', e => {
+        if (e.target.matches('button')) {
+            // console.log('111');
+            const key = e.target;
+            const action = key.dataset.action;
+            const keyContent = key.textContent;
+            const displayedNum = display.textContent;
+
+            if (!action) {
+                if (displayedNum === '0') {
+                    display.textContent = keyContent
+                }else{
+                    display.textContent = displayedNum + keyContent
+                }
+            }
+
+            // if (
+            //     action === 'add' ||
+            //     action === 'subtract' ||
+            //     action === 'multiply' ||
+            //     action === 'divide'
+            // ) {
+            //     key.classList.add('is-depressed')
+            // }
+
+            if (action === 'decimal') {
+                display.textContent = displayedNum + '.'
+            }
+
+            if(action === 'add'){
+                display.textContent = displayedNum + '+'
+            }
+            if(action === 'subtract'){
+                display.textContent = displayedNum + '-'
+            }
+            if(action === 'multiply'){
+                display.textContent = displayedNum + '*'
+            }
+            if(action === 'divide'){
+                display.textContent = displayedNum + '/'
+            }
+
+            if (action === 'clear') {
+                display.textContent = '0'
+            }
+
+            if (action === 'calculate') {
+                display.textContent = eval(display.textContent);
+                // console.log(eval(display.textContent))
+            }
+
+
+        }
+    })
+
+    // const display = document.querySelector('.cal_display')
+
+    // keys.addEventListener('click', e=>{
+    //     if(e.target.matches('button')){
+    //         const key = e.target;
+    //         const action = key.dataset.action;
+    //         const keyContent = key.textContent;
+    //         const displayedNum = display.textContent;
+    //     }
+
+
+    // })
+
+
+</script>
